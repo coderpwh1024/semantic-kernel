@@ -69,12 +69,12 @@ public class GitHubPlugin {
      * @param assignee
      * @return
      */
-    @DefineKernelFunction(name ="get_issues",description = "Get issues from GitHub",returnType = "java.util.List")
-    public Mono<List<GitHubModel.Issue>> getIssuesAsync(@KernelFunctionParameter(name="organization",description ="The name of the organization to retrieve issues for") String organization,
-                                                        @KernelFunctionParameter(name="repoName",description = "The name of the repository to retrieve issues for") String repoName,
-                                                        @KernelFunctionParameter(name = "max_results",description = "The maximum number of issues to retrieve",required = false,defaultValue = "10",type = int.class) int maxResults,
-                                                        @KernelFunctionParameter(name ="state",description = "The state of the issues to retrieve",required = false,defaultValue = "open") String state,
-                                                       @KernelFunctionParameter(name = "assignee",description = "The assignee of the issues to retrieve",required = false) String assignee){
+    @DefineKernelFunction(name = "get_issues", description = "Get issues from GitHub", returnType = "java.util.List")
+    public Mono<List<GitHubModel.Issue>> getIssuesAsync(@KernelFunctionParameter(name = "organization", description = "The name of the organization to retrieve issues for") String organization,
+                                                        @KernelFunctionParameter(name = "repoName", description = "The name of the repository to retrieve issues for") String repoName,
+                                                        @KernelFunctionParameter(name = "max_results", description = "The maximum number of issues to retrieve", required = false, defaultValue = "10", type = int.class) int maxResults,
+                                                        @KernelFunctionParameter(name = "state", description = "The state of the issues to retrieve", required = false, defaultValue = "open") String state,
+                                                        @KernelFunctionParameter(name = "assignee", description = "The assignee of the issues to retrieve", required = false) String assignee) {
 
         HttpClient client = createClient();
         String query = String.format("/repos/%s/%s/issues", organization, repoName);
@@ -82,7 +82,7 @@ public class GitHubPlugin {
         query = buildQueryString(query, "assignee", assignee);
         query = buildQueryString(query, "per_page", String.valueOf(maxResults));
 
-        return  makeRequest(client,query).flatMap(json->{
+        return makeRequest(client, query).flatMap(json -> {
             try {
                 GitHubModel.Issue[] issues = GitHubModel.objectMapper.readValue(json, GitHubModel.Issue[].class);
                 return Mono.just(List.of(issues));
@@ -94,6 +94,20 @@ public class GitHubPlugin {
     }
 
 
+    @DefineKernelFunction(name = "get_issue_detail_info", description = "Get detail information of a single issue from GitHub", returnType = "com.microsoft.semantickernel.samples.plugins.github.GitHubModel$IssueDetail")
+    public GitHubModel.IssueDetail getIssueDetailAsync(@KernelFunctionParameter(name = "organization", description = "The name of the repository to retrieve information for") String organization,
+                                                       @KernelFunctionParameter(name = "repo_name", description = "The name of the repository to retrieve information for") String repoName,
+                                                       @KernelFunctionParameter(name = "issue_number", description = "The issue number to retrieve information for", type = int.class) int issueNumber) {
+        HttpClient client = createClient();
+        return makeRequest(client, String.format("/repos/%s/%s/issues/%d", organization, repoName, issueNumber))
+                .map(json -> {
+                    try {
+                        return GitHubModel.objectMapper.readValue(json, GitHubModel.IssueDetail.class);
+                    } catch (Exception e) {
+                        throw new IllegalStateException("Failed to deserialize GitHubIssueDetail", e);
+                    }
+                }).block();
+    }
 
 
     /***
