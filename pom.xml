@@ -90,6 +90,12 @@
             <artifactId>semantickernel-connectors-ai-openai</artifactId>
             <version>0.2.13-alpha</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.semantic-kernel</groupId>
+            <artifactId>semantickernel-aiservices-openai</artifactId>
+            <version>1.4.4-RC1</version>
+        </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>

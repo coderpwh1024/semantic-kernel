@@ -6,7 +6,7 @@ import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.plugin.KernelPlugin;
 import com.microsoft.semantickernel.plugin.KernelPluginFactory;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
-//import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
+import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 
 /**
  * @author coderpwh
@@ -27,32 +27,10 @@ public class CompletionAgent {
                 .endpoint(AZURE_OPENAI_API_ENDPOINT).buildAsyncClient();
 
 
-
-
-  /*      ChatCompletionService chatCompletion = OpenAIChatCompletion.builder()
+        ChatCompletionService chatCompletion = OpenAIChatCompletion.builder()
                 .withModelId(MODEL_ID)
                 .withOpenAIAsyncClient(client)
-                .build();*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                .build();
 
 
     }
