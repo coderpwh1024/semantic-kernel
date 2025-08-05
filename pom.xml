@@ -112,6 +112,21 @@
             <artifactId>semantickernel-aiservices-openai</artifactId>
             <version>1.4.4-RC1</version>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.semantic-kernel</groupId>
+            <artifactId>semantickernel-aiservices-huggingface</artifactId>
+            <version>1.4.4-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.semantic-kernel</groupId>
+            <artifactId>semantickernel-experimental</artifactId>
+            <version>1.4.4-RC1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.semantic-kernel</groupId>
+            <artifactId>semantickernel-aiservices-google</artifactId>
+            <version>1.4.4-RC1</version>
+        </dependency>
 
     </dependencies>
     <dependencyManagement>
