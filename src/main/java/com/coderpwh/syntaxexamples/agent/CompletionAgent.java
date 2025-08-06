@@ -12,6 +12,10 @@ import com.microsoft.semantickernel.plugin.KernelPluginFactory;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
 import com.microsoft.semantickernel.orchestration.InvocationContext;
+import com.microsoft.semantickernel.agents.AgentInvokeOptions;
+import com.microsoft.semantickernel.agents.AgentThread;
+//import com.microsoft.semantickernel.agents.chatcompletion.ChatCompletionAgent;
+//import com.microsoft.semantickernel.agents.chatcompletion.ChatHistoryAgentThread;
 /**
  * @author coderpwh
  */

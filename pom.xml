@@ -96,11 +96,11 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
             <artifactId>semantickernel-api</artifactId>
             <version>1.4.4-RC1</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
@@ -114,19 +114,10 @@
         </dependency>
         <dependency>
             <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-aiservices-huggingface</artifactId>
+            <artifactId>semantickernel-agents-core</artifactId>
             <version>1.4.4-RC1</version>
         </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-experimental</artifactId>
-            <version>1.4.4-RC1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.microsoft.semantic-kernel</groupId>
-            <artifactId>semantickernel-aiservices-google</artifactId>
-            <version>1.4.4-RC1</version>
-        </dependency>
+
 
     </dependencies>
     <dependencyManagement>
