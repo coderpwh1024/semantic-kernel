@@ -32,7 +32,6 @@ public class ConversationSummaryPlugin {
                 .withTopP(0.5)
                 .build();
 
-
         /**
          *  创建一个总结对话的函数
          */
