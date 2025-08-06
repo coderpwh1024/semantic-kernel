@@ -28,7 +28,7 @@ public class FunctionsWithinPrompts_Example {
     public static void main(String[] args) {
 
 
-        String AZURE_OPENAI_API_KEY = " ";
+        String AZURE_OPENAI_API_KEY = "";
 
         String AZURE_OPENAI_API_ENDPOINT = "";
 

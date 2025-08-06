@@ -83,7 +83,7 @@ public class ConversationSummaryPlugin {
      * @param kernel
      * @return
      */
-    @DefineKernelFunction(description = "Given a long conversation transcript, summarize the conversation.", name = "SummarizeConversation", returnType = "java.util.String")
+    @DefineKernelFunction(description = "Given a long conversation transcript, summarize the conversation.", name = "SummarizeConversation", returnType = "java.lang.String")
     public Mono<String> SummarizeConversationAsync(@KernelFunctionParameter(name = "input", description = "A long conversation transcript.") String input, Kernel kernel) {
         return processAsync(this.summarizeConversationFunction, input, kernel);
     }
@@ -95,7 +95,7 @@ public class ConversationSummaryPlugin {
      * @param kernel
      * @return
      */
-    @DefineKernelFunction(description = "Given a long conversation transcript, identify action items.", name = "GetConversationActionItems", returnType = "java.util.String")
+    @DefineKernelFunction(description = "Given a long conversation transcript, identify action items.", name = "GetConversationActionItems", returnType = "java.lang.String")
     public Mono<String> GetConversationActionItemsAsync(@KernelFunctionParameter(name = "input", description = "A long conversation transcript.") String input, Kernel kernel) {
         return processAsync(this.conversationActionItemsFunction, input, kernel);
     }
@@ -107,7 +107,7 @@ public class ConversationSummaryPlugin {
      * @param kernel
      * @return
      */
-    @DefineKernelFunction(description = "Given a long conversation transcript, identify topics worth remembering.", name = "GetConversationTopics", returnType = "java.util.String")
+    @DefineKernelFunction(description = "Given a long conversation transcript, identify topics worth remembering.", name = "GetConversationTopics", returnType = "java.lang.String")
     public Mono<String> GetConversationTopicsAsync(@KernelFunctionParameter(name = "input", description = "A long conversation transcript.") String input, Kernel kernel) {
         return processAsync(this.conversationTopicsFunction, input, kernel);
     }
