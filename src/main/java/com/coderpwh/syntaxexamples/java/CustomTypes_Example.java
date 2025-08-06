@@ -23,7 +23,7 @@ public class CustomTypes_Example {
 
     public static void main(String[] args) {
 
-        String AZURE_OPENAI_API_KEY = "";
+        String AZURE_OPENAI_API_KEY = " ";
         String AZURE_OPENAI_API_ENDPOINT = "";
         String MODEL_ID = "";
 
@@ -39,7 +39,7 @@ public class CustomTypes_Example {
 
 
         exampleBuildingCustomConverter(chatCompletionService);
-        exampleUsingJackson(chatCompletionService);
+//        exampleUsingJackson(chatCompletionService);
         exampleUsingGlobalTypes(chatCompletionService);
     }
 
@@ -62,6 +62,11 @@ public class CustomTypes_Example {
         }
     }
 
+
+    /***
+     * 自定义转换器
+     * @param chatCompletionService
+     */
     private static void exampleBuildingCustomConverter(ChatCompletionService chatCompletionService) {
         Pet sandy = new Pet("Sandy", 3, "Dog");
 
@@ -80,6 +85,7 @@ public class CustomTypes_Example {
         };
 
 
+        // 文本(字符串)转换器
         ContextVariableTypeConverter<Pet> typeConverter = ContextVariableTypeConverter.builder(Pet.class)
                 .toPromptString(petToString)
                 .fromPromptString(stringToPet)
@@ -87,28 +93,64 @@ public class CustomTypes_Example {
 
 
         Pet updated = kernel.invokePromptAsync("Change Sandy's name to Daisy:\\n{{$Sandy}}", KernelArguments.builder()
-                .withVariable("Sandy", sandy, typeConverter).build()).withTypeConverter(typeConverter).withResultType(Pet.class).block().getResult();
+                        .withVariable("Sandy", sandy, typeConverter).build())
+                .withTypeConverter(typeConverter)
+                .withResultType(Pet.class)
+                .block()
+                .getResult();
 
-        System.out.println("Sandy's updated record: " + updated);
+        System.out.println("exampleBuildingCustomConverter方法中-更新后的结果为:" + updated);
     }
 
+
+    /***
+     * 使用Jackson
+     * @param chatCompletionService
+     */
     public static void exampleUsingJackson(ChatCompletionService chatCompletionService) {
 
         Pet sandy = new Pet("Sandy", 3, "Dog");
 
         Kernel kernel = Kernel.builder().withAIService(ChatCompletionService.class, chatCompletionService).build();
 
+        // json 转换器
         ContextVariableTypeConverter<Pet> typeConverter = ContextVariableJacksonConverter.create(Pet.class);
 
-        Pet updated = kernel.invokePromptAsync("Increase Sandy's age by a year:\n{{$Sandy}}",
-                KernelArguments.builder()
-                        .withVariable("Sandy", sandy, typeConverter)
-                        .build()).withTypeConverter(typeConverter).withResultType(Pet.class).block().getResult();
 
-        System.out.println("Sandy's updated record: " + updated);
+        // 修改提示词，明确要求返回JSON格式
+        String prompt = """
+        Increase Sandy's age by a year.
+        Respond ONLY with a valid JSON object in this exact format:
+        {"name": "Sandy", "age": 3, "type": "Dog"}
+        Do not include any other text.
+        
+        Input data:
+        {{$Sandy}}
+        """;
+        try {
+            Pet updated = kernel.invokePromptAsync("Increase Sandy's age by a year:\n{{$Sandy}}",
+                    KernelArguments.builder()
+                            .withVariable("Sandy", sandy, typeConverter)
+                            .build()).withTypeConverter(typeConverter).withResultType(Pet.class).block().getResult();
+
+            System.out.println("更新后的结果为:"+updated);
+        } catch (Exception e) {
+            // 如果JSON解析失败，尝试获取原始响应
+            String rawResponse = kernel.invokePromptAsync("Increase Sandy's age by a year:\n{{$Sandy}}",
+                    KernelArguments.builder()
+                            .withVariable("Sandy", sandy, typeConverter)
+                            .build()).block().getResult().toString();
+
+            System.out.println("返回后的实体为:" + rawResponse);
+            // 在这里可以添加自定义解析逻辑来处理自然语言响应
+        }
     }
 
 
+    /***
+     * 使用全局类型
+     * @param chatCompletionService
+     */
     public static void exampleUsingGlobalTypes(ChatCompletionService chatCompletionService) {
 
         Pet sandy = new Pet("Sandy", 3, "Dog");
@@ -118,12 +160,27 @@ public class CustomTypes_Example {
         ContextVariableTypeConverter<Pet> typeConverter = ContextVariableJacksonConverter.create(Pet.class);
         ContextVariableTypes.addGlobalConverter(typeConverter);
 
+        try {
+            Pet updated = kernel.invokePromptAsync("Sandy's is actually a cat correct this:\n{{$Sandy}}", KernelArguments.builder()
+                    .withVariable("Sandy", sandy)
+                    .build())
+                    .withResultType(Pet.class)
+                    .block()
+                    .getResult();
+            System.out.println("Sandy's updated record: " + updated);
+        } catch (Exception e) {
+            Pet updated = kernel.invokePromptAsync("Sandy's is actually a cat correct this:\n{{$Sandy}}",
+                    KernelArguments.builder()
+                    .withVariable("Sandy", sandy)
+                    .build())
+                    .withResultType(Pet.class)
+                    .block().
+                    getResult();
+        }
 
-        Pet updated = kernel.invokePromptAsync("Sandy's is actually a cat correct this:\n{{$Sandy}}", KernelArguments.builder()
-                .withVariable("Sandy", sandy)
-                .build()).withResultType(Pet.class).block().getResult();
 
-        System.out.println("Sandy's updated record: " + updated);
+
+
     }
 
 
