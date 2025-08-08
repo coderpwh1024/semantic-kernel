@@ -27,17 +27,17 @@ public class Example17_ChatGPT {
                 .withOpenAIAsyncClient(client)
                 .build();
 
-        System.out.println(":");
+        System.out.println("聊天内容:");
         System.out.println("-------------------------------------------");
 
-        ChatHistory chatHistory = new ChatHistory("You are a librarian, expert about books");
-        chatHistory.addUserMessage("Hi, I'm looking for book suggestions");
+        ChatHistory chatHistory = new ChatHistory("你是一名图书管理员，对书籍非常精通");
+        chatHistory.addUserMessage("Hi, 我正在寻找一些书籍推荐");
         messageOutput(chatHistory);
 
         reply(chat, chatHistory);
         messageOutput(chatHistory);
 
-        chatHistory.addUserMessage("I love history and philosophy, I'd like to learn something new about Greece, any suggestion");
+        chatHistory.addUserMessage("我喜欢历史和哲学，我想了解一下有关希腊的新知识，有什么建议吗？");
         messageOutput(chatHistory);
 
 
