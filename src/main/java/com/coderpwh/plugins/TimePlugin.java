@@ -50,6 +50,55 @@ public class TimePlugin {
     }
 
 
+    @DefineKernelFunction(name = "now", description = "Get the current date and time in the local time zone")
+    public String now(@KernelFunctionParameter(name = "locale", description = "Locale to use when formatting the date", required = false) String locale){
+        return  DateTimeFormatter.ofPattern(DAY_MONTH_DAY_YEAR + "h:mm a")
+                .withLocale(parseLocale(locale))
+                .format(now());
+    }
+
+
+    @DefineKernelFunction(name = "year", description = "Get the current year")
+    public String year(@KernelFunctionParameter(name = "locale",description = "Locale to use when formatting the date",required = false) String locale){
+        return DateTimeFormatter.ofPattern("yyyy").withLocale(parseLocale(locale)).format(now());
+    }
+
+    @DefineKernelFunction(name = "month", description = "Get the current month name")
+    public String month(
+            @KernelFunctionParameter(name = "locale", description = "Locale to use when formatting the date", required = false) String locale) {
+        return DateTimeFormatter.ofPattern("MMMM").withLocale(parseLocale(locale)).format(now());
+    }
+
+
+    @DefineKernelFunction(name = "monthNumber", description = "Get the current month number")
+    public String monthNumber(@KernelFunctionParameter(name = "locale",description = "Locale to use when formatting the date",required = false) String locale){
+        return  DateTimeFormatter.ofPattern("MM").withLocale(parseLocale(locale)).format(now());
+    }
+
+    @DefineKernelFunction(name = "day", description = "Get the current day of the month")
+    public String day(@KernelFunctionParameter(name ="locale",description = "Locale to use when formatting the date",required = false) String locale){
+        return  DateTimeFormatter.ofPattern("d").withLocale(parseLocale( locale)).format(now());
+    }
+
+
+    @DefineKernelFunction(name = "dayOfWeek", description = "Get the current day of the week")
+    public String dayOfWeek(@KernelFunctionParameter(name = "locale",description = "Locale to use when formatting the date",required = false) String locale){
+        return  DateTimeFormatter.ofPattern("EEEE").withLocale(parseLocale(locale)).format(now());
+    }
+
+    @DefineKernelFunction(name = "hour", description = "Get the current hour")
+    public String hour(@KernelFunctionParameter(name = "locale",description = "Locale to use when formatting the date",required = false) String  locale){
+        return DateTimeFormatter.ofPattern("h a").withLocale(parseLocale(locale)).format(now());
+    }
+
+
+
+
+
+
+
+
+
     protected Locale parseLocale(String locale) {
         return LocaleParser.parseLocale(locale);
     }

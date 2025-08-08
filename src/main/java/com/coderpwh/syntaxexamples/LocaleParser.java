@@ -9,6 +9,7 @@ public class LocaleParser {
 
 
     private LocaleParser() {
+
     }
 
     @SuppressWarnings("StringSplitter")
