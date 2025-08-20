@@ -10,9 +10,9 @@ import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
 public class Example17_ChatGPT {
 
 
-    private static String AZURE_OPENAI_API_KEY = "";
+    private static String AZURE_OPENAI_API_KEY = " ";
     private static String AZURE_OPENAI_API_ENDPOINT = "";
-    private static String MODEL_ID = "";
+    private static String MODEL_ID = " ";
 
     public static void main(String[] args) {
 
