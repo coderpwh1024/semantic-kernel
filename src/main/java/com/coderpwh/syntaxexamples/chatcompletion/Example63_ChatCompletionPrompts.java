@@ -6,7 +6,6 @@ import com.azure.core.credential.AzureKeyCredential;
 import com.microsoft.semantickernel.Kernel;
 import com.microsoft.semantickernel.aiservices.openai.chatcompletion.OpenAIChatCompletion;
 import com.microsoft.semantickernel.semanticfunctions.KernelFunctionFromPrompt;
-import com.microsoft.semantickernel.semanticfunctions.annotations.KernelFunctionParameter;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
 
 import java.util.concurrent.CountDownLatch;
@@ -16,7 +15,7 @@ public class Example63_ChatCompletionPrompts {
 
     private static String AZURE_OPENAI_API_KEY = " ";
     private static String AZURE_OPENAI_API_ENDPOINT = "";
-    private static String MODEL_ID = " ";
+    private static String MODEL_ID = "";
 
 
     public static void main(String[] args) throws InterruptedException {
@@ -37,7 +36,7 @@ public class Example63_ChatCompletionPrompts {
 
         // 提示词
         String chatPrompt = """
-                <message role="user">What is Seattle?</message>
+                <message role="user">我需要大量的金钱</message>
                 <message role="system">Respond with JSON.</message>
                 """.stripIndent();
 
