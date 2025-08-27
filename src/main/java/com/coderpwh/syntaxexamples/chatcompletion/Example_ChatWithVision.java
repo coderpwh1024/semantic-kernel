@@ -8,6 +8,7 @@ import com.microsoft.semantickernel.implementation.CollectionUtil;
 import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionService;
 import com.microsoft.semantickernel.services.chatcompletion.ChatHistory;
 import com.microsoft.semantickernel.services.chatcompletion.message.ChatMessageImageContent;
+import com.microsoft.semantickernel.services.chatcompletion.ChatMessageContent;
 
 import java.io.IOException;
 import java.io.InputStream;
