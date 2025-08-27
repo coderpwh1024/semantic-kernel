@@ -39,7 +39,7 @@ public class Example_ChatWithVision {
                 .build();
 
         describeUrl(chatCompletionService);
-        describeImage(chatCompletionService);
+//        describeImage(chatCompletionService);
     }
 
 
