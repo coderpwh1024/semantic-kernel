@@ -22,7 +22,7 @@ public class Example08_RetryHandler {
 
     public static void main(String[] args) {
 
-        RetryOptions  retryOptions = new RetryOptions(new ExponentialBackoffOptions()
+        RetryOptions retryOptions = new RetryOptions(new ExponentialBackoffOptions()
                 .setMaxDelay(Duration.ofSeconds(10))
                 .setBaseDelay(Duration.ofSeconds(2))
                 .setMaxRetries(3));
@@ -33,7 +33,7 @@ public class Example08_RetryHandler {
                 .credential(new AzureKeyCredential(AZURE_OPENAI_API_KEY))
                 .buildAsyncClient();
 
-        ChatCompletionService  openAIChatCompletion = OpenAIChatCompletion.builder()
+        ChatCompletionService openAIChatCompletion = OpenAIChatCompletion.builder()
                 .withOpenAIAsyncClient(client)
                 .withModelId(MODEL_ID)
                 .build();
@@ -43,7 +43,7 @@ public class Example08_RetryHandler {
                 .withAIService(ChatCompletionService.class, openAIChatCompletion)
                 .build();
 
-        String question = "How popular is the Polly library?";
+        String question = "Polly 图书馆有多受欢迎?";
 
 
         KernelFunction<String> function = KernelFunctionFromPrompt.<String>builder()
@@ -51,12 +51,11 @@ public class Example08_RetryHandler {
                 .build();
 
         try {
-             var result = kernel.invokeAsync(function).block();
-            System.out.println("结果为:"+result);
-        }catch (Exception e){
+            var result = kernel.invokeAsync(function).block();
+            System.out.println("结果为:" + result.getResult());
+        } catch (Exception e) {
             System.out.println("重试");
         }
-
 
 
     }
