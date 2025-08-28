@@ -13,6 +13,10 @@ import com.microsoft.semantickernel.services.chatcompletion.ChatCompletionServic
 
 import java.time.Duration;
 
+
+/***
+ * 创建重试策略
+ */
 public class Example08_RetryHandler {
 
 
@@ -22,6 +26,8 @@ public class Example08_RetryHandler {
 
     public static void main(String[] args) {
 
+
+         // 创建重试策略
         RetryOptions retryOptions = new RetryOptions(new ExponentialBackoffOptions()
                 .setMaxDelay(Duration.ofSeconds(10))
                 .setBaseDelay(Duration.ofSeconds(2))
