@@ -19,9 +19,9 @@ import java.time.format.DateTimeFormatter;
 
 public class Example05_InlineFunctionDefinition {
 
-    private static String AZURE_OPENAI_API_KEY = " ";
+    private static String AZURE_OPENAI_API_KEY = "";
     private static String AZURE_OPENAI_API_ENDPOINT = "";
-    private static String MODEL_ID = " ";
+    private static String MODEL_ID = "";
 
     public static void main(String[] args) {
 
